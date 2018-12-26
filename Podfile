@@ -7,5 +7,6 @@ target 'Mitter Starter' do
     pod 'Firebase/Messaging'
     pod 'SnapKit', '~> 4.0'
     pod 'IQKeyboardManagerSwift'
+    pod 'PaddingLabel', '1.1'
     pod ‘Mitter’, :path => ‘../../../mitter-sdk-ios/Mitter/’
 end

@@ -89,6 +89,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PaddingLabel (1.1)
   - PhoneNumberKit (2.5.0):
     - PhoneNumberKit/PhoneNumberKitCore (= 2.5.0)
     - PhoneNumberKit/UIKit (= 2.5.0)
@@ -110,6 +111,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - IQKeyboardManagerSwift
   - Mitter (from `../../../mitter-sdk-ios/Mitter/`)
+  - PaddingLabel (= 1.1)
   - SnapKit (~> 4.0)
 
 SPEC REPOS:
@@ -129,6 +131,7 @@ SPEC REPOS:
     - Moya
     - Moya-ModelMapper
     - nanopb
+    - PaddingLabel
     - PhoneNumberKit
     - Protobuf
     - Result
@@ -159,6 +162,7 @@ SPEC CHECKSUMS:
   Moya: a725035953bc1c0eb1be505ab903984501d82440
   Moya-ModelMapper: 35209257d9e886cedf91289559a41723f5fbd095
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PaddingLabel: d11fee9d2be54122a037bb4a429fb5d3f2c73d58
   PhoneNumberKit: 32a1cd1e0aa9e950feb01886a22fd7386b8cf903
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
@@ -168,6 +172,6 @@ SPEC CHECKSUMS:
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a
   Swinject: 82cdb851f63f91bba974e3eca1d69780f2f7677e
 
-PODFILE CHECKSUM: 2a26e54d006bfa8560ee25f903237c879715ff66
+PODFILE CHECKSUM: ee92d75e3722179cd17ad677f53bc5617d0e73b6
 
 COCOAPODS: 1.5.3

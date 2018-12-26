@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PaddingLabel
 
 class MessageCell: UITableViewCell {
 
@@ -17,7 +18,7 @@ class MessageCell: UITableViewCell {
     weak var senderName: UILabel!
 
     @IBOutlet
-    weak var textPayload: UILabel!
+    weak var textPayload: PaddingLabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,19 +26,13 @@ class MessageCell: UITableViewCell {
 
         contentView.clipsToBounds = true
 
-        //contentView.layer.borderColor = UIColor.red.cgColor
-        //contentView.layer.borderWidth = 1.0
-
-        container.layer.borderColor = UIColor.yellow.cgColor
-        container.layer.borderWidth = 1.0
-
         senderName.layer.borderColor = UIColor.blue.cgColor
         senderName.layer.borderWidth = 1.0
 
         textPayload.layer.borderColor = UIColor.green.cgColor
         textPayload.layer.borderWidth = 1.0
         textPayload.layer.cornerRadius = 5.0
-        textPayload.layer.masksToBounds = false
+        textPayload.layer.masksToBounds = true
         textPayload.lineBreakMode = .byWordWrapping
         textPayload.numberOfLines = 0
     }

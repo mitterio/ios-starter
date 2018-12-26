@@ -84,6 +84,8 @@ class ChannelWindowViewController: UIViewController, UITableViewDelegate, UITabl
 
         let message = self.messages[indexPath.row]
 
+        //cell.selectionStyle = UITableViewCell.SelectionStyle.none
+
         cell.textPayload.text = message.textPayload
         cell.senderName.text = message.senderId.domainId
 
@@ -92,8 +94,18 @@ class ChannelWindowViewController: UIViewController, UITableViewDelegate, UITabl
         if mitter.getUserId() == message.senderId.domainId {
             //If message is by current user, align to right
             cell.container.snp.makeConstraints { (make) -> Void in
-                make.right.equalTo(cell.contentView.snp.right).offset(10)
+                make.right.equalTo(cell.contentView.snp.right).offset(-20)
             }
+
+            // Align text's side and bottom to the container
+            cell.textPayload.snp.makeConstraints { (make) -> Void in
+                make.right.equalTo(cell.container.snp.right).offset(-10)
+                make.bottom.equalTo(cell.container.snp.bottom)
+            }
+
+            //Hide the sender id
+            cell.senderName.isHidden = true
+
             //Change color to ligh purple
             cell.textPayload.backgroundColor = UIColor(rgb: 0xe284ff)
         } else {
