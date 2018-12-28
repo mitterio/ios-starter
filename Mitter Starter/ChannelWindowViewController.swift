@@ -75,6 +75,13 @@ class ChannelWindowViewController: UIViewController, UITableViewDelegate, UITabl
         return self.messages.count
     }
 
+    func newMessage(channelId: String, message: Message) {
+        if (self.channelId == channelId) {
+            messages.append(message)
+            tableView.reloadData()
+        }
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // create a new cell if needed or reuse an old one
         let cell: MessageCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as! MessageCell!

@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         mitter = Mitter(
             applicationId: "RZXnp-2llDF-LpJUn-0vT0m",
-            userAuthToken: "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJtaXR0ZXItaW8iLCJ1c2VyVG9rZW5JZCI6InZJYUVhenB5cnB2ekJ5aDEiLCJ1c2VydG9rZW4iOiJqb25nbHNjdXVqZmNvNTk4ZTVsbHZrdjl0cyIsImFwcGxpY2F0aW9uSWQiOiJSWlhucC0ybGxERi1McEpVbi0wdlQwbSIsInVzZXJJZCI6InVzZXItb25lIn0.oyt4g-7gHloDNf2G8_oEa9iJOO2kqQkhkJYG4ueQtxKFTlAXIaXgSMPf6v2b1AHUxWgwKGPfRAi2MvAeBC0uJw"
+            userAuthToken: "eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJtaXR0ZXItaW8iLCJ1c2VyVG9rZW5JZCI6InhQc2wxZko3ZEJuejFXYkYiLCJ1c2VydG9rZW4iOiIydWdxbzZyaXZuODZhOTk3a3BuaDRvMDI0MSIsImFwcGxpY2F0aW9uSWQiOiJSWlhucC0ybGxERi1McEpVbi0wdlQwbSIsInVzZXJJZCI6InVzZXItb25lIn0.N7iQpKrIdQSFtFM0WG3Y-FreJaSn45_nINgnQcM2Hh94xP85IxUabeu5CjjpD3yeAeK8_nYBTLe2SSaWvXQv0A"
         )
 
         return true
@@ -169,16 +169,7 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         let messageString = userInfo["data"] as! String
         let messagingPipelinePayload = mitter.parseFcmMessage(data: messageString)
 
-        if mitter.isMitterMessage(messagingPipelinePayload) {
-            let payload = mitter.processPushMessage(messagingPipelinePayload!)
-
-            switch payload {
-            case .NewMessagePayload(let message, let channelId):
-                print("Received Message: \(message), for Channel: \(channelId)")
-            default:
-                print("Nothing to print!")
-            }
-        }
+        processFcmMessage(pipelinePayload: messagingPipelinePayload)
 
         // Change this to your preferred presentation option
         completionHandler([])
@@ -197,6 +188,27 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
         print("Message 4 is: \(userInfo)")
 
         completionHandler()
+    }
+
+    func processFcmMessage(pipelinePayload: MessagingPipelinePayload?) {
+        if mitter.isMitterMessage(pipelinePayload) {
+            let payload = mitter.processPushMessage(pipelinePayload!)
+
+            switch payload {
+                // Handle the new message payload: Add it to the Channel Window View Controller
+                case .NewMessagePayload(let message, let channelId):
+                    print("Received Message: \(message), for Channel: \(channelId)")
+                    if let navController = window?.rootViewController as? UINavigationController {
+                        // Get the second controller, which is the ChannelWindowViewController according to the storyboard
+                        if let channelWindowViewController = navController.viewControllers[1] as? ChannelWindowViewController {
+                            channelWindowViewController.newMessage(channelId: channelId.domainId, message: message)
+                        }
+                    }
+                // Ignore all other payloads
+                default:
+                    print("Nothing to print!")
+            }
+        }
     }
 }
 // [END ios_10_message_handling]
@@ -217,6 +229,8 @@ extension AppDelegate : MessagingDelegate {
     // To enable direct data messages, you can set Messaging.messaging().shouldEstablishDirectChannel to true.
     func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
         print("Received data message: \(remoteMessage.appData)")
+        let messagingPipelinePayload = mitter.parseFcmMessage(data: remoteMessage.appData["data"] as! String)
+        processFcmMessage(pipelinePayload: messagingPipelinePayload)
     }
     // [END ios_10_data_message]
 }
