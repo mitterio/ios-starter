@@ -56,8 +56,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // create a new cell if needed or reuse an old one
         let cell: UITableViewCell = self.tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier) as UITableViewCell!
 
-        print("MITTER: Creating cell for channel with id: \(self.channels[indexPath.row])")
-
         // set the text from the data model
         cell.textLabel?.text = self.channels[indexPath.row].channel.channelId
 
